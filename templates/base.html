@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.1.3-dist/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+    <title>{% block title %}{% endblock %} - Машинное зрение 101</title>
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Машинное зрение 101</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% block prediction %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/prediction">Распознавание<span class="sr-only">(current)</span></a>
+                </li>
+                {% endblock %}
+
+                {% block markup %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/markup">Разметка</a>
+                </li>
+                {% endblock %}
+
+                {% block fine_tune %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/fine_tune">Дообучение</a>
+                </li>
+                {% endblock %}
+            </ul>
+          </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+    <div id="footer">
+      {% block footer %}
+          <div class="centered">
+              <p>&copy; Copyright 2018.</p>
+          </div>
+      {% endblock %}
+    </div>
+  </body>
+</html>

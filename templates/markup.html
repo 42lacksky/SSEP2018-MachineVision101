@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Распознавание{% endblock %}
+
+{% block markup %}
+    <li class="nav-item">
+        <a class="nav-link active" href="/markup">Разметка</a>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+    <br>
+    <div id="canvas_div" class="centered">
+        <canvas id="canvas" width="280" height="280"></canvas>
+    </div>
+    <div class="centered">
+        <div class="row justify-content-center">
+            <div class="input-group col-sm-1">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Метка:</span>
+              </div>
+            <input type="text" class="form-control" id="label" placeholder="0-9" aria-label="0-9" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="centered">
+        <input type="button" class="btn btn-success" id="predictButton" value="Добавить цифру">
+        <input type="button" class="btn btn-warning" id="clearButton" value="Очистить">
+    </div>
+
+    <div class="centered">
+        <h1 id="result"></h1>
+    </div>
+
+
+    <script src="{{url_for('static',filename='jquery-3.2.0.min.js')}}"></script>
+    <script src="{{url_for('static',filename='index.js')}}"></script>
+
+    <script type="text/javascript">
+        $("#predictButton").click(function(){
+            $('#result').text('  Предсказываю...');
+            var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
+            var canvasObj = document.getElementById("canvas");
+            var label = $("#label").val();
+            var img = canvasObj.toDataURL('image/png');
+            $.ajax({
+                type: "POST",
+                url: $SCRIPT_ROOT + "/markup/",
+                data: {img: img, label: label},
+                success: function(data){
+                    $('#result').text('Цифра ' + data + ' добавлена в базу.');
+                }
+            });
+        });
+   </script>
+
+{% endblock %}

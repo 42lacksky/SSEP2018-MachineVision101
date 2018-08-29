@@ -1,0 +1,21 @@
+h2 {
+	text-align: center;
+	left:0;
+	right:0;
+	color: #807F7D;
+	font-size: 25px;
+	font-weight: 300;
+	z-index: -1;
+}
+
+#canvas {
+	border: 3px solid;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.centered {
+	position: relative;
+	text-align: center;
+}
