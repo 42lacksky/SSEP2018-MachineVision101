@@ -11,8 +11,7 @@ from model.train import train_model
 import os
 
 data_path = './data/'
-with open('knn.pkl', 'rb') as f:
-    clf = pickle.load(f)
+clf = train_model()
 
 app = Flask(__name__)
 
@@ -59,8 +58,6 @@ def fine_tune():
     image = request.form["img"]
     label = request.form["label"]
 
-    print(parse_image(image.encode('ascii'), label))
-
     x = imread(parse_image(image.encode('ascii'), label), mode='L')
     x = np.invert(x)
     x = resize(x, (28, 28))
@@ -72,6 +69,7 @@ def fine_tune():
     if int(prediction) == int(label):
         return "Я думаю это {} и это правильно! Думаю, учиться мне тут нечему.".format(label)
 
+    clf = train_model()
     return "Эта цифра так похожа на {}, но это {}. Попробую больше так не ошибаться!".format(prediction, label)
 
 

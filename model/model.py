@@ -23,6 +23,7 @@ class MV101_KNN(object):
         labels_counts = self.__count_labels(correct_labels)
         max_index = self.__find_max(labels_counts)
 
+        print(max_index)
         return max_index
 
     def save(self):
@@ -95,7 +96,6 @@ class MV101_KNN(object):
         """
         4. Получить нужные лейблы (Гоша)
         """
-        print(self.labels)
         start_time = time.time()
         correct_labels = self.labels[first_k_indexes]
         print(time.time() - start_time)
@@ -129,6 +129,5 @@ class MV101_KNN(object):
                 y = i
         max_index = y
         nt = time.time() - starttime
-        print(nt)
 
         return max_index
